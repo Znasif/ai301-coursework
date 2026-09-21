@@ -105,8 +105,6 @@ Quote source text directly in each field below. Paraphrase does not satisfy them
 
 **Run history**
 
-<!-- TODO (you): if you did any eval runs before this one, list their scores in
-order above run 1 so the sequence is complete. -->
 
 1. Full run, `sonnet`, 5 workers, `--save-run eval-run.txt --out results.json`
    (2026-09-21T02:23:16Z): `agreement: 20/20 scored items  (bar: 18/20: PASS)`,
