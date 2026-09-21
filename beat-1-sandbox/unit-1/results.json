@@ -1,0 +1,805 @@
+{
+  "rubric": "/home/znasif/.claude/skills/issue-select/rubric.md",
+  "model": "sonnet",
+  "agreement": [
+    20,
+    20
+  ],
+  "results": [
+    {
+      "id": "issue-01",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "4 of last 5 default-branch commits dated 2026-08-04, 1 day before capture (2026-08-05), by human authors codewithdaniel1/danyeaw"
+        },
+        {
+          "name": "repo-alive",
+          "grade": "pass",
+          "evidence": "not archived; latest release 26.7.0 dated 2026-07-31, 5 days before capture date 2026-08-05"
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "pass",
+          "evidence": "several related doc edits delivering one stated outcome (permanent docs for GA conda-pypi workflow); no request to split into separate PRs/sub-issues, no design debate, no core-internals blocker, not a support question, opened only 5 days before capture"
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "\"this issue: assignees: none; linked PRs: none\"; 0 comments"
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md \"Generative AI\" section: AI tools welcome, must review/understand AI-generated content (a condition to follow, not a ban)"
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "repo has 7481 stars"
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-02",
+      "verdict": "reject",
+      "failed_checks": [
+        "maintainer-alive",
+        "repo-alive"
+      ],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "fail",
+          "evidence": "All 5 sampled issues: 'no maintainer comment in thread'; last 5 default-branch commits dated 2023-12-09 or earlier, none within 30 days of capture (2026-08-05)."
+        },
+        {
+          "name": "repo-alive",
+          "grade": "fail",
+          "evidence": "Latest release v1.12 (2023-12-09) is ~20 months before capture date 2026-08-05, exceeding the 120-day threshold; rubric states this fails even with recent pushes."
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "pass",
+          "evidence": "Single bug report (BSD sed -i incompatibility) with a concrete proposed fix; not an umbrella issue, no unresolved design debate, no core-internals blocker, not a support question."
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "'this issue: assignees: none; linked PRs: none'; comments contain no claim to the work."
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "'contribution policy: no CONTRIBUTING.md in the repo; no stated policy' \u2014 passes by default."
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "repo: rupa/z (17036 stars)"
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-03",
+      "verdict": "reject",
+      "failed_checks": [
+        "bounded-scope",
+        "not-claimed"
+      ],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "Last 5 default-branch commits include 2026-08-03 by Pierre-Sassoulas (human), within 30 days of capture date 2026-08-05."
+        },
+        {
+          "name": "repo-alive",
+          "grade": "pass",
+          "evidence": "Not archived; latest release v4.0.6 (2026-06-14) is 52 days before capture date, within 120-day window."
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "fail",
+          "evidence": "Issue opened 2023-10-12 (>365 days before capture) and has 3 closed/unmerged linked PRs (#10987, #11001, #11008)."
+        },
+        {
+          "name": "not-claimed",
+          "grade": "fail",
+          "evidence": "Linked PR #10985 is open; COLLABORATOR DanielNoord states they are 'not looking for any other contributions other than @hamza-mobeen's PR' (#10985)."
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md has no AI statement; repo ships AGENTS.md for AI coding agents."
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "Repo has 5709 stars, well above the 100-star preferred threshold."
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-04",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "#462 first maintainer comment in 25.8 days; last 5 commits all dated 2026-08-04 by human authors, within 30 days of capture"
+        },
+        {
+          "name": "repo-alive",
+          "grade": "pass",
+          "evidence": "not archived; latest release v1.0.0 (2026-04-29) is 98 days before capture (2026-08-05), under the 120-day limit"
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "pass",
+          "evidence": "single stated outcome (add missing rule previews), opened by COLLABORATOR with 'good first issue' label, no debate/core-internals/umbrella-split signals"
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "assignees: none; linked PRs: none"
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md: no statement on AI or contribution tooling"
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "101 stars"
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-05",
+      "verdict": "reject",
+      "failed_checks": [
+        "repo-alive",
+        "bounded-scope",
+        "not-claimed"
+      ],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "#23858 first maintainer comment in 0.5 days and #30210 in 0.0 days, both within 30 days"
+        },
+        {
+          "name": "repo-alive",
+          "grade": "fail",
+          "evidence": "latest release 1.14.0 dated 2025-04-27, ~465 days before the 2026-08-05 capture date, exceeding the 120-day threshold"
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "fail",
+          "evidence": "issue text: 'PRs are welcome both big and small (better to start small)' for incremental, open-ended work, with 12 separate linked PRs from many contributors"
+        },
+        {
+          "name": "not-claimed",
+          "grade": "fail",
+          "evidence": "linked PRs sympy/sympy#28815, #28817, #28839 are open against this issue"
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "contribution policy (CONTRIBUTING.md): no statement on AI or contribution tooling"
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "repo: sympy/sympy (14832 stars)"
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-06",
+      "verdict": "accept",
+      "failed_checks": [
+        "stars"
+      ],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "Last default-branch commit 2026-07-14 by human abubakr-itqan is within 30 days of capture date 2026-08-05."
+        },
+        {
+          "name": "repo-alive",
+          "grade": "pass",
+          "evidence": "No releases published, but last push to any branch (2026-07-31) is within 30 days of capture date (2026-08-05)."
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "pass",
+          "evidence": "Issue is a specific bug fix with acceptance criteria and a 'where to start' pointer, opened by a COLLABORATOR, not an umbrella/disputed/support issue."
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "assignees: none; linked PRs: none; 0 comments in thread."
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "contribution policy (CONTRIBUTING.md): no statement on AI or contribution tooling."
+        },
+        {
+          "name": "stars",
+          "grade": "fail",
+          "evidence": "repo: Itqan-community/quran-apps-directory (37 stars) \u2014 below 100-star threshold."
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-07",
+      "verdict": "reject",
+      "failed_checks": [
+        "maintainer-alive",
+        "repo-alive"
+      ],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "fail",
+          "evidence": "All 5 sampled issues show 'no maintainer comment in thread'; last 5 commits (2023-02-01 to 2025-02-10) none within 30 days of capture date 2026-08-05"
+        },
+        {
+          "name": "repo-alive",
+          "grade": "fail",
+          "evidence": "No releases published, so fallback rule requires push within 30 days; last push to any branch was 2025-02-27, far outside that window relative to capture date 2026-08-05"
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "pass",
+          "evidence": "Clear bug report with repro steps and identified root cause in get_ith_path lambda; no umbrella framing, design debate, or core-internals objection"
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "'this issue: assignees: none; linked PRs: none'; zero comments"
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "'no CONTRIBUTING.md in the repo; no stated policy'"
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "repo: wting/autojump (16956 stars)"
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-08",
+      "verdict": "reject",
+      "failed_checks": [
+        "bounded-scope",
+        "not-claimed"
+      ],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "#39859 got first maintainer comment in 2.6 days; amanagr (human) committed 2026-08-03, within 30 days of capture"
+        },
+        {
+          "name": "repo-alive",
+          "grade": "pass",
+          "evidence": "not archived; latest release 12.1 dated 2026-06-26, ~40 days before capture (within 120-day window)"
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "fail",
+          "evidence": "amanagr (MEMBER): 'I will have spend some time to answer your question, you can do what seems right to you' \u2014 declines to settle the open design question on banner data-attributes/action buttons"
+        },
+        {
+          "name": "not-claimed",
+          "grade": "fail",
+          "evidence": "Repo facts: 'assignees: piyushagarwal-55; linked PRs: zulip/zulip#39811 (open)'"
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md: AI tools allowed, with conditions to understand/test/explain changes"
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "repo: zulip/zulip (25604 stars)"
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-09",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "Last 5 default-branch commits all dated 2026-08-04, within 30 days of capture (2026-08-05), by human authors codewithdaniel1/danyeaw \u2014 path (b) satisfied."
+        },
+        {
+          "name": "repo-alive",
+          "grade": "pass",
+          "evidence": "Not archived; latest release 26.7.0 dated 2026-07-31, 5 days before capture date."
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "pass",
+          "evidence": "Single feature request opened by MEMBER jakirkham, labeled 'good first issue'; only 1 closed/unmerged linked PR (#11627), not the required 2+."
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "assignees: none; only linked PR #11627 is closed/unmerged (abandoned attempt), no open PR exists."
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md 'Generative AI' section: AI tools welcome, contributor must review/understand output \u2014 condition, not a ban."
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "Repo has 7481 stars, >= 100."
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-10",
+      "verdict": "reject",
+      "failed_checks": [
+        "repo-alive",
+        "bounded-scope"
+      ],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "4 of last 5 default-branch commits dated 2026-08-04/05, including human author IMHOJEONG, within 30 days of capture date 2026-08-05"
+        },
+        {
+          "name": "repo-alive",
+          "grade": "fail",
+          "evidence": "latest release v2.3 (2025-03-07) is far older than 120 days before capture date 2026-08-05, and a release does exist so the no-releases fallback doesn't apply"
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "fail",
+          "evidence": "issue titled 'Documentation request megaissue' listing 100+ linked sub-issues for anyone to pick from \u2014 an umbrella/meta issue"
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "assignees: none; linked PRs #18634/#18768/#18792/#18795 are closed or merged, not open"
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md discourages unreviewed AI-generated pages and closes suspected unreviewed AI/MT PRs \u2014 a review condition, not an outright ban"
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "63303 stars >= 100"
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-11",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "#507 got maintainer first-response in 0.4 days; all 5 last default-branch commits dated 2026-08-04 by human authors, within 30 days of 2026-08-05 capture"
+        },
+        {
+          "name": "repo-alive",
+          "grade": "pass",
+          "evidence": "not archived; latest release v1.0.0 (2026-04-29) is ~98 days before capture, within the 120-day window"
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "pass",
+          "evidence": "single specific bug report about a rewrite applying multiple times; no umbrella/tracking language, no debate in (empty) thread, not a feature proposal (Type: bug, opened by COLLABORATOR)"
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "assignees: none; linked PRs: none; zero comments"
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md has no statement on AI or contribution tooling"
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "repo has 101 stars, meeting the 100-star preferred threshold"
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-12",
+      "verdict": "reject",
+      "failed_checks": [
+        "ai-policy"
+      ],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "#4094 and #3638 got first maintainer comment in 0.3 and 0.5 days respectively"
+        },
+        {
+          "name": "repo-alive",
+          "grade": "pass",
+          "evidence": "not archived; latest release v0.9.1 dated 2026-07-20, 23 days before 2026-08-12 capture"
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "pass",
+          "evidence": "single stated outcome; MEMBER mouse-reeve gave concrete design direction (custom stacked bar, Bulma CSS, accessible); no core-internals blocker; labeled 'good first issue' by maintainers; zero linked PRs so the abandoned-attempts clause doesn't apply"
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "assignees: none; linked PRs: none; jrings' 'I've started to look at this' has no assignee/open PR so doesn't count as a claim"
+        },
+        {
+          "name": "ai-policy",
+          "grade": "fail",
+          "evidence": "CONTRIBUTING.md Generative AI section: 'We do not accept AI-generated code or documentation.'"
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "2766 stars, on the repo line under Repo facts"
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-13",
+      "verdict": "reject",
+      "failed_checks": [
+        "repo-alive",
+        "not-claimed"
+      ],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "#23385 (opened 2026-07-19) got a maintainer comment at 0.0 days"
+        },
+        {
+          "name": "repo-alive",
+          "grade": "fail",
+          "evidence": "latest release v1.38.1 dated 2026-02-19 is 167 days before the 2026-08-05 capture date, exceeding the 120-day threshold"
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "pass",
+          "evidence": "concrete bug fix listing 4 specific files, opened by COLLABORATOR nirs, labeled 'good first issue', no debate or umbrella language"
+        },
+        {
+          "name": "not-claimed",
+          "grade": "fail",
+          "evidence": "linked PRs: kubernetes/minikube#23438 (open); kubernetes/minikube#23439 (open)"
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "contribution policy (CONTRIBUTING.md): no statement on AI or contribution tooling"
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "repo: kubernetes/minikube (32013 stars)"
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-14",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "3 of last 5 default-branch commits (2026-08-01 to 2026-08-05) authored by human SaifAlYounan, within 30 days of 2026-08-05 capture date"
+        },
+        {
+          "name": "repo-alive",
+          "grade": "pass",
+          "evidence": "not archived; latest release desktop-v0.6.2 dated 2026-07-04, 32 days before capture date, within 120-day window"
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "pass",
+          "evidence": "issue specifies exact six-file, one-outcome docs edit; empty comment thread, no debate, not a feature proposal, opened 2026-08-04"
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "\"this issue: assignees: none; linked PRs: none\" and 0 comments"
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "\"contribution policy (CONTRIBUTING.md): no statement on AI or contribution tooling\""
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "repo has 113 stars (>=100)"
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-15",
+      "verdict": "reject",
+      "failed_checks": [
+        "bounded-scope"
+      ],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "#39859 first maintainer comment in 2.6 days; also a human-authored default-branch commit on 2026-08-03, within 30 days of capture."
+        },
+        {
+          "name": "repo-alive",
+          "grade": "pass",
+          "evidence": "Not archived; latest release 12.1 on 2026-06-26 is ~40 days before the 2026-08-05 capture, within the 120-day window."
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "fail",
+          "evidence": "Opened 2021-08-18 (>365 days before capture) with two closed, unmerged linked PRs (#20840, #23123) \u2014 matches the abandoned-attempts failure condition."
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "Repo facts: 'this issue: assignees: none'; linked PRs are both closed, none open."
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md permits AI-assisted contributions subject to understanding/testing/disclosure conditions, which does not constitute a ban."
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "Repo has 25,604 stars, well above the 100-star threshold."
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-16",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "4 of last 5 default-branch commits dated 2026-08-04 (1 day before 2026-08-05 capture) by human authors codewithdaniel1/danyeaw"
+        },
+        {
+          "name": "repo-alive",
+          "grade": "pass",
+          "evidence": "not archived; latest release 26.7.0 dated 2026-07-31, 5 days before capture date"
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "pass",
+          "evidence": "single concrete bug report, opened 2026-08-03 (2 days old), 0 comments so no unresolved debate, no umbrella/tracking language"
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "assignees: none; linked PRs: none; 0 comments so no claim exists"
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md Generative AI section: 'generative AI tools welcome; you are responsible for all contributions and must review and understand AI-generated content'"
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "7481 stars >= 100"
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-17",
+      "verdict": "reject",
+      "failed_checks": [
+        "repo-alive"
+      ],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "#433 got first maintainer comment in 1.4 days and #432 in 0.2 days, both within 30 days."
+        },
+        {
+          "name": "repo-alive",
+          "grade": "fail",
+          "evidence": "Repo line: 'archived: yes' \u2014 check requires the repo not be archived."
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "pass",
+          "evidence": "Bug report by OWNER jarun with concrete repro (debug log + attached HTML); no umbrella framing, no unsettled debate, no core-internals claim, no closed unmerged PRs (linked PRs: none)."
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "'this issue: assignees: none; linked PRs: none'; 0 comments."
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "'contribution policy: no CONTRIBUTING.md in the repo; no stated policy'."
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "Repo line: '6206 stars' \u2265 100."
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-18",
+      "verdict": "reject",
+      "failed_checks": [
+        "bounded-scope",
+        "not-claimed"
+      ],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "#11817 first maintainer comment in 0.6 days; #4656 in 0.1 days"
+        },
+        {
+          "name": "repo-alive",
+          "grade": "pass",
+          "evidence": "not archived; latest release 2026-04-21 is ~107 days before capture date 2026-08-05, within 120-day window"
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "fail",
+          "evidence": "opened 2025-06-15 (>365 days before capture) with two closed unmerged linked PRs (#11021, #11460)"
+        },
+        {
+          "name": "not-claimed",
+          "grade": "fail",
+          "evidence": "open PRs exist against this issue: #9685, #10371, #11656, LennyMalcolm0/excalidraw#314"
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md: no statement on AI or contribution tooling"
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "repo has 128988 stars"
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-19",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "#507 got first maintainer comment in 0.4 days and #462 in 25.8 days, both within 30 days"
+        },
+        {
+          "name": "repo-alive",
+          "grade": "pass",
+          "evidence": "not archived; latest release v1.0.0 (2026-04-29) is 98 days before capture (2026-08-05), within 120-day window"
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "pass",
+          "evidence": "issue states one outcome (UI freeze fix) with related causes/suggestions toward it; no umbrella language, no unresolved debate, no maintainer core-internals statement"
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "assignees: none; linked PRs: none; 0 comments in thread"
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md has no statement on AI or contribution tooling"
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "repo has 101 stars, meets the 100-star threshold"
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "issue-20",
+      "verdict": "reject",
+      "failed_checks": [
+        "bounded-scope"
+      ],
+      "checks": [
+        {
+          "name": "maintainer-alive",
+          "grade": "pass",
+          "evidence": "4 of last 5 default-branch commits dated 2026-08-04 by human authors, within 30 days of capture date 2026-08-05"
+        },
+        {
+          "name": "repo-alive",
+          "grade": "pass",
+          "evidence": "not archived; latest release v0.18.1 dated 2026-04-21, ~106 days before capture, under 120-day threshold"
+        },
+        {
+          "name": "bounded-scope",
+          "grade": "fail",
+          "evidence": "New feature proposal opened by cursor[bot] (author_association: NONE), labels: none, 0 comments \u2014 no maintainer comment, approval, or label confirming the feature is wanted"
+        },
+        {
+          "name": "not-claimed",
+          "grade": "pass",
+          "evidence": "assignees: none; linked PRs: none; no comments claiming it"
+        },
+        {
+          "name": "ai-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md: 'no statement on AI or contribution tooling'"
+        },
+        {
+          "name": "stars",
+          "grade": "pass",
+          "evidence": "repo has 128988 stars, >= 100"
+        }
+      ],
+      "error": null
+    }
+  ]
+}

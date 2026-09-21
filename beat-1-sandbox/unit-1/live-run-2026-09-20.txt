@@ -1,0 +1,53 @@
+**Repo-level evidence (shared by all three):**
+- maintainer-alive: **pass** — 3 of last 5 commits by human "Andrew Burke" (Aburke225) on 2026-09-16, 4 days ago (sampled issues have no maintainer comments, so (a) fails but (b) holds).
+- repo-alive: **pass** — `isArchived: false`, no releases, `pushedAt` 2026-09-16 (within 30 days).
+- ai-policy: **pass** — `docs/CONTRIBUTING.md` sets workflow terms (branch naming, conventional commits, green CI, drop xfail markers) but says nothing about AI; no `AI_POLICY.md`; PR template has no AI-disclosure item.
+- stars: **fail** (preferred) — 2 stars.
+- Repo has zero PRs of any state, so no issue has a linked or mentioned PR.
+
+**Ranked read-out (all three accepted; fit-ordered):**
+
+1. **#59 Faithfulness checker scores claims unsupported when context uses different words** — best fit: the bug is the scoring algorithm itself (`_is_supported()` uses a ≥2-shared-word heuristic that fails on paraphrase), so the fix is an algorithmic/semantic-matching problem in Python, squarely in your stated strength. No claim comments at all. One tension worth noting: it's the only one of the three without a `good first issue` label and the body states the goal ("support should not depend on shared wording") without prescribing the approach, so it's a bit more open-ended — the rubric still passes it because no design debate exists in the thread.
+2. **#68 Keyword search raises `ZeroDivisionError` on empty index** — BM25 retrieval edge case; algorithmic-adjacent but the fix is an empty-corpus guard. One peer claim (acordero4852), ignored per house rule.
+3. **#69 Output parser crashes on top-level JSON array** — type-handling in a parser fallback; least algorithmic of the three. One peer claim (Yina-Mu), ignored per house rule.
+
+```json
+[
+  {
+    "item": "https://github.com/codepath/pathreview-ai301-fa26-s3/issues/59",
+    "checks": [
+      {"name": "maintainer-alive", "grade": "pass", "evidence": "Last 5 default-branch commits authored by human 'Andrew Burke' (Aburke225); latest 2026-09-16, 4 days before today"},
+      {"name": "repo-alive", "grade": "pass", "evidence": "isArchived=false, latestRelease=null, pushedAt=2026-09-16 (within 30 days)"},
+      {"name": "bounded-scope", "grade": "pass", "evidence": "Bug report from repo committer: one function `_is_supported()` in faithfulness_checker.py with a failing test named; no umbrella language, no debate, no core-internals note, not a support question, opened 2026-09-10"},
+      {"name": "not-claimed", "grade": "pass", "evidence": "assignees=[]; repo has zero PRs in any state; no claim comments"},
+      {"name": "ai-policy", "grade": "pass", "evidence": "docs/CONTRIBUTING.md states workflow terms only, no AI ban; no AI_POLICY.md; PR template has no AI disclosure item"},
+      {"name": "stars", "grade": "fail", "evidence": "stargazerCount=2 (<100)"}
+    ],
+    "verdict": "accept"
+  },
+  {
+    "item": "https://github.com/codepath/pathreview-ai301-fa26-s3/issues/68",
+    "checks": [
+      {"name": "maintainer-alive", "grade": "pass", "evidence": "Last 5 default-branch commits authored by human 'Andrew Burke' (Aburke225); latest 2026-09-16, 4 days before today"},
+      {"name": "repo-alive", "grade": "pass", "evidence": "isArchived=false, latestRelease=null, pushedAt=2026-09-16 (within 30 days)"},
+      {"name": "bounded-scope", "grade": "pass", "evidence": "Bug in `KeywordSearcher.index([])` raising ZeroDivisionError; two files named, xfail marker H-01 to remove, est. 2-4h; labeled good first issue; opened 2026-09-10"},
+      {"name": "not-claimed", "grade": "pass", "evidence": "assignees=[]; no PRs in repo; one peer student claim comment (acordero4852, NONE) ignored per Path Review house rule"},
+      {"name": "ai-policy", "grade": "pass", "evidence": "docs/CONTRIBUTING.md states workflow terms only, no AI ban; no AI_POLICY.md; PR template has no AI disclosure item"},
+      {"name": "stars", "grade": "fail", "evidence": "stargazerCount=2 (<100)"}
+    ],
+    "verdict": "accept"
+  },
+  {
+    "item": "https://github.com/codepath/pathreview-ai301-fa26-s3/issues/69",
+    "checks": [
+      {"name": "maintainer-alive", "grade": "pass", "evidence": "Last 5 default-branch commits authored by human 'Andrew Burke' (Aburke225); latest 2026-09-16, 4 days before today"},
+      {"name": "repo-alive", "grade": "pass", "evidence": "isArchived=false, latestRelease=null, pushedAt=2026-09-16 (within 30 days)"},
+      {"name": "bounded-scope", "grade": "pass", "evidence": "Bug in output_parser.py calling .items() on a list; two files named, xfail marker H-02 to remove, est. 2-4h; labeled good first issue; opened 2026-09-10"},
+      {"name": "not-claimed", "grade": "pass", "evidence": "assignees=[]; no PRs in repo; one peer student claim comment (Yina-Mu, NONE) ignored per Path Review house rule"},
+      {"name": "ai-policy", "grade": "pass", "evidence": "docs/CONTRIBUTING.md states workflow terms only, no AI ban; no AI_POLICY.md; PR template has no AI disclosure item"},
+      {"name": "stars", "grade": "fail", "evidence": "stargazerCount=2 (<100)"}
+    ],
+    "verdict": "accept"
+  }
+]
+```
