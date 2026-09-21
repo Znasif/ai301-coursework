@@ -105,7 +105,6 @@ Quote source text directly in each field below. Paraphrase does not satisfy them
 
 **Run history**
 
-
 1. Full run, `sonnet`, 5 workers, `--save-run eval-run.txt --out results.json`
    (2026-09-21T02:23:16Z): `agreement: 20/20 scored items  (bar: 18/20: PASS)`,
    `categories: claimed 4/4  clear-accept 8/8  dead-repo 3/3  policy 1/1  scope 4/4`.
@@ -134,7 +133,7 @@ The single failing check was `ai-policy`. The bundle's repo-facts line reads:
 
 > contribution policy (CONTRIBUTING.md -> docs.joinbookwyrm.com/contributing.html,
 > section "Generative AI"): "Meaningful human interaction is the whole point of
-> BookWyrm. We do not accept AI-generated code or documentation."
+> BookWyrm. We do not accept AI-generated code or documentation. [...]"
 
 The check's pass condition is "The policy does not ban AI-generated or AI-assisted
 contributions", so this is a fail, and the verdict rule ("a single fail on any
@@ -205,9 +204,9 @@ This is also the basis for the claim comment you write in Unit 2.
 
 **Selection rationale**
 
-1. Python scoring bug, might need algorithmic fix
+1. Python scoring bug, might need algorithmic fix, shouldn't take too long
 2. rubric correctly saw activity/no-claim/no-AI-ban, but couldn't weigh that #59 is open-ended vs. #68/#69's prescribed 2–4h fixes
-3. has reproducibility, so should be good candidate for unit 2
+3. has reproducibility, so should be good candidate for unit 2 and has zero claims.
 
 ---
 
