@@ -204,7 +204,7 @@ This is also the basis for the claim comment you write in Unit 2.
 
 **Selection rationale**
 
-1. Python scoring bug, might need algorithmic fix, shouldn't take too long
+1. Python scoring bug, might need algorithmic fix, fits available time
 2. rubric correctly saw activity/no-claim/no-AI-ban, but couldn't weigh that #59 is open-ended vs. #68/#69's prescribed 2–4h fixes
 3. has reproducibility, so should be good candidate for unit 2 and has zero claims.
 
