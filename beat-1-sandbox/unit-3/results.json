@@ -1,0 +1,905 @@
+{
+  "rubric": "/home/znasif/.claude/skills/plan-check/rubric.md",
+  "evidence": "/home/znasif/.claude/skills/plan-check/references/evidence-guide.md",
+  "procedure": "/home/znasif/.claude/skills/plan-check/procedure.md",
+  "model": "sonnet",
+  "agreement": [
+    19,
+    20
+  ],
+  "results": [
+    {
+      "id": "pkg-01",
+      "verdict": "reject",
+      "failed_checks": [
+        "diagnosis",
+        "scope",
+        "changes",
+        "risks-and-tradeoffs"
+      ],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "fail",
+          "evidence": "Plan blames the requestitems tokenizer, but repro step 4 shows argparse parse_args raises the error and items never reach HTTPie's item parser; the 3.13 and no-flag controls also contradict it."
+        },
+        {
+          "name": "scope",
+          "grade": "fail",
+          "evidence": "Out-of-scope list ('argparse itself, flag handling, docs') has no reasoning and excludes the actual defect site; the in-scope tokenizer rewrite is unrelated to the defect."
+        },
+        {
+          "name": "changes",
+          "grade": "fail",
+          "evidence": "'Extend the item-separator regex to accept item tokens that follow an optional flag' leaves the actual regex design to build time, and targets code the repro shows is never reached."
+        },
+        {
+          "name": "test",
+          "grade": "pass",
+          "evidence": "Re-run of test case 1 on Python 3.11 expecting 'header1: xyz' in the request output and exit 0, plus tokenizer unit tests on 3.11-3.13."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md is a standard guide with no AI policy, and the thread has no maintainer direction (both commenters are NONE); the comment makes no violating commitment."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "fail",
+          "evidence": "Plan and comment assert the root cause with certainty and state no risks or unknowns, such as the argparse point-release variance noted in the thread."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "wrong-cause",
+      "calibration": false
+    },
+    {
+      "id": "pkg-02",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "pass",
+          "evidence": "Pins usize underflow at printer.rs:934 (cursor overshoots cursor_max); width-2 and no-background controls both consistent with it."
+        },
+        {
+          "name": "scope",
+          "grade": "pass",
+          "evidence": "Names src/printer.rs and tests/; explicitly excludes redesigning wide-char wrapping at tiny widths, with reasoning."
+        },
+        {
+          "name": "changes",
+          "grade": "pass",
+          "evidence": "Two files with rationale, tiny footprint, saturating_sub clamps at two named sites; minor ambiguity on what the clamp is at the line-795 advance, and the audit is bounded to noting findings in the PR."
+        },
+        {
+          "name": "test",
+          "grade": "pass",
+          "evidence": "Adds width-1 integration test from the repro command expecting exit 0 and drawn output, and re-runs both controls."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "pass",
+          "evidence": "No thread comments; CONTRIBUTING.md is standard with no AI policy; the comment is modest and bounded."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "pass",
+          "evidence": "States other underflow-prone width arithmetic may exist outside print_line and that the width-1 visual result stays imperfect."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-03",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "pass",
+          "evidence": "Filename in option position is read as options; repro shows gzip: invalid option -- '1' for -10.txt.gz while the dash-free control normal.txt.gz matches."
+        },
+        {
+          "name": "scope",
+          "grade": "pass",
+          "evidence": "Names crates/cli/src/decompress.rs; in scope is only the argument separator, out of scope are shell quoting, tool choice and matching logic."
+        },
+        {
+          "name": "changes",
+          "grade": "pass",
+          "evidence": "One-line change adding `--` in the command builder in a named file, no adds/deletes, well under 500 lines; remaining tool verification has a stated fallback."
+        },
+        {
+          "name": "test",
+          "grade": "pass",
+          "evidence": "Re-run `rg -z sometext` must print a match from -10.txt.gz with exit 0, control still matches, and a dash-named fixture is added to the compression integration tests."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "pass",
+          "evidence": "Acknowledges #3224 and open PR #3314 and will not race it; discloses AI assistance and states the comment is in own words per AI_POLICY; no maintainer direction contradicted."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "pass",
+          "evidence": "States gzip/xz/zstd verified, bzip2/lz4/brotli still to verify, and any tool lacking `--` support will be flagged as an open question in the PR."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-04",
+      "verdict": "reject",
+      "failed_checks": [
+        "test",
+        "contribution-policy",
+        "risks-and-tradeoffs"
+      ],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "pass",
+          "evidence": "\"fzf keeps reading console input while an execute child runs\" matches the repro and the /dev/tty control run."
+        },
+        {
+          "name": "scope",
+          "grade": "pass",
+          "evidence": "Docs only (man page, README, FAQ); explicitly excludes input handling code; no scope creep."
+        },
+        {
+          "name": "changes",
+          "grade": "pass",
+          "evidence": "Three concrete doc edits, small footprint, each with a stated purpose."
+        },
+        {
+          "name": "test",
+          "grade": "fail",
+          "evidence": "Test only follows the new docs to confirm the /dev/tty workaround works; it does not assert keys reach less without the redirection (the repro's Expected)."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "fail",
+          "evidence": "Maintainer identified light_windows.go as the culprit and posted a patched binary; plan excludes any input handling change and substitutes a docs workaround."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "fail",
+          "evidence": "No risks or trade-offs stated; ignores that the bug stays unfixed and the maintainer's patch leaves a first-key residue; comment claims docs will stop lost sessions."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "thread-convention",
+      "calibration": false
+    },
+    {
+      "id": "pkg-05",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "pass",
+          "evidence": "Freshness derived only from cached notices' expires_at; repro step 4 (no request) and step 5 control (cache cleared -> A and B) confirm."
+        },
+        {
+          "name": "scope",
+          "grade": "pass",
+          "evidence": "One bounded change in get_notice_response_from_cache(); out of scope: display cadence, channel protocol, cache storage format."
+        },
+        {
+          "name": "changes",
+          "grade": "pass",
+          "evidence": "Files cache.py and tests/notices/test_cache.py named with a concrete age-vs-constant approach; small footprint, no deferred design decisions."
+        },
+        {
+          "name": "test",
+          "grade": "pass",
+          "evidence": "Unit tests for stale-by-age/fresh-by-age/expiry path plus repro re-run with cache backdated 25h expecting a second logged request and A+B printed."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "pass",
+          "evidence": "Uses NOTICES_DECORATOR_DISPLAY_INTERVAL wired into get_notice_response_from_cache() as maintainers directed; no CONTRIBUTING.md violation."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "pass",
+          "evidence": "Risk: one extra network request per channel per 24h, explicitly stated."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-06",
+      "verdict": "reject",
+      "failed_checks": [
+        "diagnosis",
+        "scope",
+        "changes",
+        "test",
+        "contribution-policy",
+        "risks-and-tradeoffs"
+      ],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "fail",
+          "evidence": "No Diagnosis section; plan says the issue is the 'visible tip' of an unsound pipeline and never identifies the swallowed export error or grounds the preload-layout claim in the repro."
+        },
+        {
+          "name": "scope",
+          "grade": "fail",
+          "evidence": "No Scope section or out-of-scope list; bundles a containerd 1.7.23->1.7.28 upgrade, a cross-runtime abstraction, and a new CI matrix beyond the reported defect."
+        },
+        {
+          "name": "changes",
+          "grade": "fail",
+          "evidence": "Files are vague ('all three runtime implementations', 'CI workflow definitions', 'preload generation scripts'); the abstraction design is unspecified and the footprint is likely well over 500 lines."
+        },
+        {
+          "name": "test",
+          "grade": "fail",
+          "evidence": "No new automated test is defined; only a repro re-run with `file` plus 'new CI matrix passes', with no assertion that export errors now exit non-zero."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "fail",
+          "evidence": "Maintainer nirs pointed at errors hidden from the user (--v=10); the plan buries error surfacing as item 4 under a sweeping redesign and doesn't engage the thread's direction."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "fail",
+          "evidence": "Only says 'bigger change' and claims it 'removes the whole class'; no risks or unknowns named (e.g. containerd bump regressions across drivers)."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "scope-creep",
+      "calibration": false
+    },
+    {
+      "id": "pkg-07",
+      "verdict": "reject",
+      "failed_checks": [
+        "diagnosis",
+        "changes",
+        "risks-and-tradeoffs"
+      ],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "fail",
+          "evidence": "Plan claims FES is tree-shaken out of the bundle, but control run 3 shows instance-method friendly errors print in the same build, so FES is present; the real cause is _friendlyError living only on Vector.prototype, not the static constructor."
+        },
+        {
+          "name": "scope",
+          "grade": "pass",
+          "evidence": "Names rollup.config.mjs and package.json and states Vector class and FES code are out of scope; only a minor CI assertion extra."
+        },
+        {
+          "name": "changes",
+          "grade": "fail",
+          "evidence": "Core step 'mark the FES module as having side effects' names no module or option and targets a cause the repro disproves; CI assertion has no concrete implementation."
+        },
+        {
+          "name": "test",
+          "grade": "pass",
+          "evidence": "Build locally, run the issue snippet, confirm friendly error message prints instead of the TypeError: a deterministic repro re-run with an observable outcome."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "pass",
+          "evidence": "No maintainer direction contradicted (ksen0 only welcomed contributors; the cause analysis came from a NONE-badge user); nothing violates the AI Usage Policy."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "fail",
+          "evidence": "No risks or unknowns stated; plan asserts 'The TypeError is the tell' and comment says 'Should be a small PR'."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "wrong-cause",
+      "calibration": false
+    },
+    {
+      "id": "pkg-08",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "pass",
+          "evidence": "delpaths_sorted groups by adjacency in sorted order so mixed-sign non-leaf indices split the group; consistent with controls (all-positive/all-negative correct, mixed wrong)"
+        },
+        {
+          "name": "scope",
+          "grade": "pass",
+          "evidence": "Names src/jv_aux.c and tests/jq.test; in scope is grouping in delpaths_sorted; tombstone rework explicitly out of scope with reasoning"
+        },
+        {
+          "name": "changes",
+          "grade": "pass",
+          "evidence": "Concrete approach: normalize negative indices against array length per level before grouping; small change; out-of-range behavior pinned to leaf-level rule with a test"
+        },
+        {
+          "name": "test",
+          "grade": "pass",
+          "evidence": "Adds the three repro cases plus two controls to jq.test with stated expected output [[0,1,2,3,5,7,8,9]], and keeps the existing simultaneous-deletion test passing"
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "pass",
+          "evidence": "No binding maintainer directive in thread; plan matches the thread's convergence and the comment acknowledges #3543/#3548; CONTRIBUTING has no conflicting rule"
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "pass",
+          "evidence": "Risk: out-of-range negative indices at non-leaf levels; tombstone rework deliberately deferred as a trade-off"
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-09",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "pass",
+          "evidence": "Glob-derived regex expects '/' but is matched against raw '\\' paths because globset's Candidate::new normalization is skipped; regex-mode control (step 4) and Linux control (step 5) support it."
+        },
+        {
+          "name": "scope",
+          "grade": "pass",
+          "evidence": "In scope: Windows glob-mode full-path match; out of scope: option 1 direct globset matching and regex-mode changes, with reasons."
+        },
+        {
+          "name": "changes",
+          "grade": "pass",
+          "evidence": "Names src/walk.rs, src/main.rs (no change), tests/tests.rs; small '\\'-to-'/' mapping on match candidate only, Windows-gated, no deferred design decisions."
+        },
+        {
+          "name": "test",
+          "grade": "pass",
+          "evidence": "Windows-gated fixture test: three pattern spellings each print C:\\t\\fixture\\src\\foo\\a.spec.ts; regex control unchanged; Linux control still matches."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "pass",
+          "evidence": "Follows tmccombs's option 2 from the thread and defers option 1; AI-disclosure rule applies to PRs not issue comments, and the comment is in the contributor's own voice and acknowledges PR #2089."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "pass",
+          "evidence": "Flags that '\\' is a legal Unix filename character, gates to Windows, and calls it out for review; notes option 1 trade-off."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-10",
+      "verdict": "reject",
+      "failed_checks": [
+        "diagnosis",
+        "scope",
+        "changes",
+        "test",
+        "risks-and-tradeoffs"
+      ],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "fail",
+          "evidence": "Plan says only \"git modules on Windows clearly have performance problems\" and proposes to \"dig into where the time goes\"; it names no cause despite repro isolating git_status (1873ms vs 350ms raw git, <100ms when disabled)."
+        },
+        {
+          "name": "scope",
+          "grade": "fail",
+          "evidence": "No files named and no out-of-scope statement; bundles profiling, scoop investigation, caching between prompts, and spawning fewer git subprocesses in general."
+        },
+        {
+          "name": "changes",
+          "grade": "fail",
+          "evidence": "No files or functions identified; \"Optimize whatever the profiling turns up\" defers all design decisions to build time."
+        },
+        {
+          "name": "test",
+          "grade": "fail",
+          "evidence": "\"The prompt should feel fast\" and \"starship timings should look much better\" give no concrete threshold or automated assertion."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "pass",
+          "evidence": "Thread has 0 comments and CONTRIBUTING.md is a standard guide with no AI policy; nothing in the plan or comment violates either."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "fail",
+          "evidence": "No risks, unknowns, or trade-offs stated; caching is proposed without mentioning staleness or correctness concerns."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "unbuildable",
+      "calibration": false
+    },
+    {
+      "id": "pkg-11",
+      "verdict": "reject",
+      "failed_checks": [
+        "diagnosis",
+        "changes",
+        "risks-and-tradeoffs"
+      ],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "fail",
+          "evidence": "Plan blames the collect operator, but the repro control shows top-level `[.a]` yields `[null]` correctly; only select/and/or contexts (DontAutoCreate) drop the key."
+        },
+        {
+          "name": "scope",
+          "grade": "pass",
+          "evidence": "Names operator_collect.go and operator_collect_test.go and states select/and/or are out of scope; no scope creep."
+        },
+        {
+          "name": "changes",
+          "grade": "fail",
+          "evidence": "Approach 'always contribute a null element' names no function or mechanism, defers design to build time, and targets the wrong component."
+        },
+        {
+          "name": "test",
+          "grade": "pass",
+          "evidence": "Adds collect scenarios and asserts the issue's three commands return 1, {}, and true."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md is standard with no AI policy; the only thread comment is from a NONE user, not a maintainer, and the plan contradicts no maintainer direction."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "fail",
+          "evidence": "No risks or unknowns stated; 'Should be contained to the collect operator file' is unverified certainty."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "wrong-cause",
+      "calibration": false
+    },
+    {
+      "id": "pkg-12",
+      "verdict": "reject",
+      "failed_checks": [
+        "diagnosis",
+        "scope",
+        "changes",
+        "test",
+        "contribution-policy",
+        "risks-and-tradeoffs"
+      ],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "fail",
+          "evidence": "No Diagnosis section; Background only says the bug is 'a symptom of that accumulation' of special cases, naming no mechanism."
+        },
+        {
+          "name": "scope",
+          "grade": "fail",
+          "evidence": "No scope or Files statement; bundles an algorithm rewrite, blockquote/footnote changes, a proseWrap change, a new markdownIndentAdjust option, and a module restructure for a single-defect issue."
+        },
+        {
+          "name": "changes",
+          "grade": "fail",
+          "evidence": "Proposes a new wrapping algorithm and unnamed new modules without specifying them; design is deferred to build time and the size is far over 500 lines."
+        },
+        {
+          "name": "test",
+          "grade": "fail",
+          "evidence": "Test plan is 'repro formats with indent preserved; format suite passes after snapshot updates'; no new test is added, and it relies on existing suites with updated snapshots."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "fail",
+          "evidence": "Ignores tats-u's thread comment that input and output give identical HTML in four parsers (label 'needs discussion'), and proposes an unexplained large rewrite plus a new public option against the AI usage policy."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "fail",
+          "evidence": "Only admits it is larger than the issue suggests; no risks, unknowns, or compatibility costs named, and it claims to fix 'the class' without evidence."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "scope-creep",
+      "calibration": false
+    },
+    {
+      "id": "pkg-13",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "pass",
+          "evidence": "Stale viewport offset clamps to top and the renderer isn't invalidated; this matches repro steps 3-4, the alacritty control, and DHowett's invalidation-bug comments."
+        },
+        {
+          "name": "scope",
+          "grade": "pass",
+          "evidence": "Limited to the ESC[3J branch of AdaptDispatch::EraseInDisplay and its invalidation; mouse-selection and scrollback redesign are explicitly excluded."
+        },
+        {
+          "name": "changes",
+          "grade": "pass",
+          "evidence": "Three concrete steps (re-anchor viewport, invalidate visible region, adapter unit test); small footprint; the only open unknown is a one-level shift of the clamp site."
+        },
+        {
+          "name": "test",
+          "grade": "pass",
+          "evidence": "Repro re-run must show a bottom snap and no blank regions without a resize, plus an adapter unit test of viewport position after ESC[3J."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "pass",
+          "evidence": "CONTRIBUTING.md is a standard guide with a CLA and no AI policy; the plan doesn't contradict anything in the thread and follows DHowett's framing."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "pass",
+          "evidence": "Flags the conhost shared-path regression risk and the unverified clamp layer as an unknown."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-14",
+      "verdict": "reject",
+      "failed_checks": [
+        "changes"
+      ],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "pass",
+          "evidence": "Reattach wires stdin before OSC query responses are consumed; matches fresh-attach-clean, every-reattach-leaks, 0.44.1-clean, and cache controls."
+        },
+        {
+          "name": "scope",
+          "grade": "pass",
+          "evidence": "One bounded change to the Unix reattach handshake; Windows variant and theme-cache changes explicitly deferred with reasons."
+        },
+        {
+          "name": "changes",
+          "grade": "fail",
+          "evidence": "Files names only areas ('client attach/reattach path in zellij-server', zellij-client query issuance) and says 'exact functions to be pinned in the PR after tracing', deferring design to build time."
+        },
+        {
+          "name": "test",
+          "grade": "pass",
+          "evidence": "Deterministic repro loop: 5 SSH reattach cycles with no rgb strings, fresh create clean, cache control becomes always clean."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "pass",
+          "evidence": "Standard CONTRIBUTING.md, no AI policy; no maintainer direction in the thread; comment is modest and bounded."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "pass",
+          "evidence": "States the risk of eating a legitimate keystroke during the drain, bounds the drain to OSC patterns, and flags Windows as untested."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-15",
+      "verdict": "reject",
+      "failed_checks": [
+        "scope",
+        "changes",
+        "test",
+        "contribution-policy",
+        "risks-and-tradeoffs"
+      ],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "pass",
+          "evidence": "250 ms autoSelectFamilyAttemptTimeout cause; controls 4 vs 5 (500 ms succeeds 10/10, 250 ms fails 8/10) isolate it as the variable"
+        },
+        {
+          "name": "scope",
+          "grade": "fail",
+          "evidence": "Bundles undici migration, new Settings field, sync-status UI fix, and retry-with-backoff wrapper beyond the one-line timeout fix; no out-of-scope statement"
+        },
+        {
+          "name": "changes",
+          "grade": "fail",
+          "evidence": "Files given only as vague areas ('packages/lib sync and WebDAV driver'); node-fetch\u2192undici migration likely exceeds 500 lines; retry policy and status-UI design deferred to build time"
+        },
+        {
+          "name": "test",
+          "grade": "fail",
+          "evidence": "No automated test named; only a manual 10/10 slow-setup run for the core fix, 'field round-trips' and an unreachable-host check; nothing for the undici migration or retry wrapper"
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "fail",
+          "evidence": "COLLABORATOR mrjo118 already made the minimal 500 ms change and built a test binary; plan expands into a multi-subsystem effort without reconciling with that direction"
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "fail",
+          "evidence": "No risks or unknowns stated, including undici behavioral risk and the thread's note that a slow TCP connection can't be tested locally"
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "scope-creep",
+      "calibration": false
+    },
+    {
+      "id": "pkg-16",
+      "verdict": "reject",
+      "failed_checks": [
+        "diagnosis",
+        "changes",
+        "test",
+        "contribution-policy",
+        "risks-and-tradeoffs"
+      ],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "fail",
+          "evidence": "Plan blames the post-read astype, but repro step 4 shows pyarrow's inferred table is already int64 1 before any cast; step 3 shows column_types=string preserves 01."
+        },
+        {
+          "name": "scope",
+          "grade": "pass",
+          "evidence": "Names arrow_parser_wrapper.py and states pyarrow reader options and the python engine are out of scope; no drive-by work."
+        },
+        {
+          "name": "changes",
+          "grade": "fail",
+          "evidence": "Re-padding to a width 'recovered from the maximum digit count plus the pad the CSV used' is undefined and unrecoverable; core design deferred to build time, and the test file named is test_read_fwf.py."
+        },
+        {
+          "name": "test",
+          "grade": "fail",
+          "evidence": "No new test; only 'example matches the python engine' and 'parser test suite passes', with no specific observable assertion."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "fail",
+          "evidence": "Contradicts thread direction (jorisvandenbossche's cause, dxdc's column_types mapping in _get_pyarrow_options) by fixing the cast and excluding pyarrow reader options."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "fail",
+          "evidence": "No risks, unknowns or trade-offs stated; the width heuristic is presented with false certainty."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "wrong-cause",
+      "calibration": false
+    },
+    {
+      "id": "pkg-17",
+      "verdict": "reject",
+      "failed_checks": [
+        "diagnosis",
+        "scope",
+        "changes",
+        "test",
+        "contribution-policy",
+        "risks-and-tradeoffs"
+      ],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "fail",
+          "evidence": "Plan states no cause: \"figure out what happened\"; ignores the repro controls (tmux mouse on/off, 0.61.1 vs 0.62.x) that already isolate the trigger."
+        },
+        {
+          "name": "scope",
+          "grade": "fail",
+          "evidence": "No files named and no out-of-scope statement; steps are open-ended investigation (\"Try different mouse protocols\")."
+        },
+        {
+          "name": "changes",
+          "grade": "fail",
+          "evidence": "No files or functions identified; \"Fix the scrolling once the cause is clear\" defers all design to build time."
+        },
+        {
+          "name": "test",
+          "grade": "fail",
+          "evidence": "\"scrolling should work correctly under tmux afterwards, and nothing else should feel broken\" has no automated test or concrete observable pass/fail condition."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "fail",
+          "evidence": "Maintainer reviews outside PRs only selectively; the plan makes an open-ended fix commitment and ignores the thread (maintainer couldn't repro on tmux 3.6b/3.7; reporter isolated to `set -g mouse on`)."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "fail",
+          "evidence": "Only admits ignorance (\"not sure which layer is responsible\"); no stated risks or trade-offs."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "unbuildable",
+      "calibration": false
+    },
+    {
+      "id": "pkg-18",
+      "verdict": "reject",
+      "failed_checks": [
+        "diagnosis",
+        "scope",
+        "changes",
+        "test",
+        "contribution-policy",
+        "risks-and-tradeoffs"
+      ],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "fail",
+          "evidence": "Plan states no cause ('make the panic go away'); ignores the control run and the member's finding that the trigger is defer inside a loop over an iterator range."
+        },
+        {
+          "name": "scope",
+          "grade": "fail",
+          "evidence": "No files named, no out-of-scope list; step 3 'check other linters while at it' is scope creep."
+        },
+        {
+          "name": "changes",
+          "grade": "fail",
+          "evidence": "'Somewhere around linter execution' and 'upstream or vendored, whichever is easier' defer design decisions to build time; no concrete files or functions."
+        },
+        {
+          "name": "test",
+          "grade": "fail",
+          "evidence": "'golangci-lint should not panic on the reproduction anymore' names no command, test, or observable assertion; no test is added."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "fail",
+          "evidence": "ldez already opened upstream fix PRs (sqlclosecheck#50, rowserrcheck#34) and golangci-lint uses a rowserrcheck fork; the plan proposes redoing that work and a blanket recover() without acknowledging the thread."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "fail",
+          "evidence": "No risks or trade-offs stated; blanket recover() masking real analyzer bugs is not mentioned."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "unbuildable",
+      "calibration": false
+    },
+    {
+      "id": "pkg-19",
+      "verdict": "reject",
+      "failed_checks": [
+        "diagnosis",
+        "scope",
+        "changes",
+        "contribution-policy",
+        "risks-and-tradeoffs"
+      ],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "fail",
+          "evidence": "Background only says bookkeeping 'needs a real owner'; never identifies why custom appear-to class isn't removed, despite the control isolating the custom-class path."
+        },
+        {
+          "name": "scope",
+          "grade": "fail",
+          "evidence": "Bundles state-machine rewrite, new persistClass feature, TransitionGroup port, test migration, and hook deprecation; no out-of-scope list."
+        },
+        {
+          "name": "changes",
+          "grade": "fail",
+          "evidence": "Rewrite of 'most of the transition code' far exceeds 500 lines; new module and deprecations justified only by redesign, no concrete fix edit."
+        },
+        {
+          "name": "test",
+          "grade": "pass",
+          "evidence": "Test plan asserts the repro's custom appear-to class is removed at transition end, via a timeline-asserting harness."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "fail",
+          "evidence": "LinusBorg: classes 'are not meant to stay'; plan adds persistClass to retain them and deprecates internal hooks without maintainer buy-in."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "fail",
+          "evidence": "Only notes it 'touches most of the transition code'; no regression risks or unknowns acknowledged."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "scope-creep",
+      "calibration": false
+    },
+    {
+      "id": "pkg-20",
+      "verdict": "reject",
+      "failed_checks": [
+        "changes"
+      ],
+      "checks": [
+        {
+          "name": "diagnosis",
+          "grade": "pass",
+          "evidence": "Stale `prev` after hyperlink-driven page growth in Terminal.print matches the issue title, the page.zig:1487 assert trace, and the no-hyperlink control."
+        },
+        {
+          "name": "scope",
+          "grade": "pass",
+          "evidence": "One bounded change (recompute prev only on capacity change); explicitly excludes unconditional recompute and wider page-memory refactors."
+        },
+        {
+          "name": "changes",
+          "grade": "fail",
+          "evidence": "No file paths named, and per-use vs two-call-site placement is deferred to a build-time benchmark; detection options were not compared as the maintainer asked."
+        },
+        {
+          "name": "test",
+          "grade": "pass",
+          "evidence": "Both fuzz-derived cases plus the no-hyperlink control added as regression tests under zig build test, plus a #11249 corpus re-run."
+        },
+        {
+          "name": "contribution-policy",
+          "grade": "pass",
+          "evidence": "Follows the maintainer's recompute-only-on-capacity-change direction; note: no AI-use disclosure in the plan comment, which AI_POLICY.md requires if AI was used."
+        },
+        {
+          "name": "risks-and-tradeoffs",
+          "grade": "pass",
+          "evidence": "Flags the unmeasured per-print cost, the fallback to two call sites, and the open question about other stale cached pointers."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "thread-convention",
+      "calibration": false
+    }
+  ]
+}
