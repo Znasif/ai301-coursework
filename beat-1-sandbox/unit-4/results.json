@@ -1,0 +1,900 @@
+{
+  "tool_dir": "/home/znasif/.claude/skills/pr-precheck",
+  "model": "sonnet",
+  "agreement": [
+    20,
+    20
+  ],
+  "results": [
+    {
+      "id": "pkg-01",
+      "verdict": "reject",
+      "failed_checks": [
+        "standards-met"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "pass",
+          "evidence": "Diff touches only tokenizer.c and test_c_parser_only.py, both named in the plan; the capacity check in tokenize_bytes is the planned change and the description's claims match the hunks."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "pass",
+          "evidence": "Repro re-run before (99999) and after (100000), plus ASAN on main vs. branch, matching the plan's expected len == 100000 and clean ASAN."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "pass",
+          "evidence": "All + lines are the capacity check or the regression test; no debug prints, commented-out code, formatting churn or moved code."
+        },
+        {
+          "name": "standards-met",
+          "grade": "fail",
+          "evidence": "The template requires a whatsnew entry and 'closes #xxxx', but no doc/source/whatsnew file is in the diff and the description has no closes line or pre-commit result."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "The only comment is from DresdenGman (NONE), not a maintainer, so there is no maintainer direction to engage."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "pass",
+          "evidence": "'pytest pandas/tests/io/parser -q passes (2841 passed, 40 skipped)' is shown."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "standards-wall",
+      "calibration": false
+    },
+    {
+      "id": "pkg-02",
+      "verdict": "accept",
+      "failed_checks": [
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "pass",
+          "evidence": "Diff files console.py, test_console.py and CHANGELOG.md all match the plan's Files list; all three save_* methods use clear=False then clear after write, as planned; description claims match the diff."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "pass",
+          "evidence": "Issue repro run before (v15.0.0) shows '' and after (branch) shows 'IMPORTANT OUTPUT\\n', matching the plan's expected outcome; the repro pinned only the save_text failure."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "pass",
+          "evidence": "All +/- lines are fix, test or changelog; repeated export_html( and theme=theme, lines are an in-place block rewrite, not a move; no debug, dead or unrelated edits."
+        },
+        {
+          "name": "standards-met",
+          "grade": "pass",
+          "evidence": "'Type of changes: Bug fix' is present, the CHANGELOG.md '### Fixed' entry is in the diff, and CONTRIBUTING.md states no AI policy."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "Only commenter vardhans07 is NONE (not a maintainer); no maintainer question or direction bears on the change."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "Only the claim '`pytest tests/ -q` passes (1462 passed, 12 skipped)' is given; no command output is pasted."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-03",
+      "verdict": "reject",
+      "failed_checks": [
+        "plan-fidelity",
+        "clean-diff",
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "fail",
+          "evidence": "Diff edits src/configs/directory.rs (not in plan), adds `resolve_symlinks` option (plan: no config surface change) and rewrites `truncate()`, while the description claims it 'Implements the posted plan exactly'."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "pass",
+          "evidence": "Repro re-run at the symlink with `starship module directory`: before '(empty)', after '~/projects/app-dir', matching the plan's expected outcome; physical path confirmed unchanged."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "fail",
+          "evidence": "`truncate()` is rewritten (removes `has_root` handling) and `+ pub resolve_symlinks: bool` is added, neither part of the fix."
+        },
+        {
+          "name": "standards-met",
+          "grade": "pass",
+          "evidence": "Conventional-commit title, Description, Motivation and Context with 'Closes #7648', and How Has This Been Tested are present; no AI policy is stated for the repo."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "Thread has 0 comments, so there is no maintainer question or direction to engage."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "'`cargo test directory` passes (34 tests)' is only claimed; no command output is shown."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "silent-drift",
+      "calibration": false
+    },
+    {
+      "id": "pkg-04",
+      "verdict": "reject",
+      "failed_checks": [
+        "plan-fidelity",
+        "decisive-evidence",
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "fail",
+          "evidence": "Diff edits CHANGELOG.md, which the plan's Files list (src/pager.rs + one unit test) never names, and the description's 'same flag set the successful probe path uses' is contradicted by the fallback being only vec![\"--RAW-CONTROL-CHARS\"] (no --quit-if-one-screen/--no-init)."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "fail",
+          "evidence": "Test evidence is only 'colors work now in paging mode. `cargo test` passes.' with no before/after output and no shown re-run of the pwsh repro."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "pass",
+          "evidence": "Unchanged match arms are -/+ inside a block rewritten in place at the same indentation (not a move); no debug prints, dead code, or unrelated edits."
+        },
+        {
+          "name": "standards-met",
+          "grade": "pass",
+          "evidence": "No PR template or AI policy; contribution guide asks for tests and a CHANGELOG entry, and both tests/pager_flags.rs and CHANGELOG.md appear in the diff."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "Thread has 0 comments, so there is no maintainer question or direction to engage."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "'`cargo test` passes' is claimed but no test output is shown."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "not-tested",
+      "calibration": false
+    },
+    {
+      "id": "pkg-05",
+      "verdict": "accept",
+      "failed_checks": [
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "pass",
+          "evidence": "Diff touches only keybindings.rs and its tests, the planned files; it widens the key to (name, mode, modifier, keycode) and adds warn_once, as planned; description claims match the hunks."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "pass",
+          "evidence": "The issue repro is re-run before (0.115.0, only 'up' row) and after (ctrl-r char_r and up rows), both outputs pasted, matching the plan's expected result."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "pass",
+          "evidence": "Every +/- line is part of the fix or its tests; repeated for/match lines are a same-place rewrite, not a move; no debug or dead code."
+        },
+        {
+          "name": "standards-met",
+          "grade": "pass",
+          "evidence": "Description and User-facing changes sections both have real content; no AI policy is stated, so no disclosure is required."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "Description addresses fdncred's name-uniqueness question and kronberger-droid's warn-and-merge caveat."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "Only the sentence \"cargo test -p nu-protocol passes (312 tests); fmt and clippy clean\" appears; no command output is shown."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-06",
+      "verdict": "reject",
+      "failed_checks": [
+        "plan-fidelity",
+        "decisive-evidence",
+        "clean-diff",
+        "standards-met",
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "fail",
+          "evidence": "Diff edits unplanned GlobalAppSettings.idl (adds MenuFollowsWindowTheme) and renames members in Initialize(), while the description says 'No functional changes outside the system menu fix'; the promised IslandWindow.h is not in the diff."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "fail",
+          "evidence": "Only prose claims a re-run with 'Screenshots attached before/after'; no before or after output is shown or quoted in the package."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "fail",
+          "evidence": "Initialize() hunk churns '_themeChangedRevoker/_onThemeChanged/_makeFrameBrush' to '_themeRevoker/_HandleThemeChange/_MakeChromeBrush', and the .idl setting is an unrelated drive-by edit."
+        },
+        {
+          "name": "standards-met",
+          "grade": "fail",
+          "evidence": "Checklist ticks 'schema n/a' although the diff adds a new setting with no schema change, and the 'tests added' item is unmet."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "Description says it uses 'documented dark-mode menu attributes' and the diff calls DwmSetWindowAttribute, which addresses DHowett's no-private-API direction and the IslandWindow.cpp pointer."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "'Terminal.Unit.Tests pass locally (0 failures)' is claimed with no command output shown."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "silent-drift",
+      "calibration": false
+    },
+    {
+      "id": "pkg-07",
+      "verdict": "reject",
+      "failed_checks": [
+        "decisive-evidence",
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "pass",
+          "evidence": "Diff touches only pkg/goanalysis/runner_fix.go and runner_fix_test.go, matching the plan's Files; description's 'grouped by their resolved file' and 'skipped with a warning' are confirmed by the hunks."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "fail",
+          "evidence": "Only the one-file control is run ('golangci-lint run --fix ./onefile/ && go build ./onefile/'); the two-file a.go/b.go repro is never re-run and no before output is shown."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "pass",
+          "evidence": "Every +/- line is part of the fix or its test; no debug prints, dead code, formatting churn, or moved code."
+        },
+        {
+          "name": "standards-met",
+          "grade": "pass",
+          "evidence": "Template asks for a brief description, which is present; no AI policy is stated, so no disclosure is required."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "The only direction in the thread is from pawannn (NONE, not a maintainer); no maintainer question bears on the change."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "'go test ./pkg/goanalysis/... passes' is claimed with no command output shown."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "not-tested",
+      "calibration": false
+    },
+    {
+      "id": "pkg-08",
+      "verdict": "accept",
+      "failed_checks": [
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "pass",
+          "evidence": "Diff files (files_controller.go, english.go, one integration test) match the plan's Files list; the AnyTrackedChanges toast-before-prompt hunk is the planned change and the description's claims are confirmed by the diff."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "pass",
+          "evidence": "Before/after of the single reproduced failure shown ('before: ... nothing (stash list empty)' / 'after: ... toast ... untracked.txt still listed'), matches plan's expected outcome, plus tracked-change control."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "pass",
+          "evidence": "All +/- lines are the fix, the i18n string, or the test; no debug prints, dead or commented-out code, moved code, or unrelated edits."
+        },
+        {
+          "name": "standards-met",
+          "grade": "pass",
+          "evidence": "Description has the PR Description and Requirements sections and covers the template items (cheatsheets, formatting, test, i18n, no UserConfig); test and i18n are in the diff; repo states no AI policy."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "No maintainer (OWNER/MEMBER/COLLABORATOR) comments in the thread; both commenters are NONE, so there is no maintainer direction to engage."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "Only the claim '`go test ./...` passes' and 'integration test ... passes'; no command output is pasted."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-09",
+      "verdict": "reject",
+      "failed_checks": [
+        "plan-fidelity",
+        "decisive-evidence",
+        "clean-diff",
+        "standards-met",
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "fail",
+          "evidence": "Diff adds unplanned `--time-format` flag, rewrites help text, and edits unplanned src/error.rs (`trim_end_matches('.')`); description claims 'exactly as planned'; no unit tests despite plan."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "fail",
+          "evidence": "After output shown for both failures, but the before (generic) output is not shown or quoted in the test evidence, and no unit tests appear."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "fail",
+          "evidence": "Unrelated drive-by edits: help text '+/// Filter results by file modification time (strictly newer than the given point)' and the src/error.rs period-trimming; unplanned --time-format flag."
+        },
+        {
+          "name": "standards-met",
+          "grade": "fail",
+          "evidence": "Description says 'CHANGELOG entry added' but CHANGELOG.md is not in the diff; no tests included despite the guide asking for them with behavior changes."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "Thread has 0 comments; no maintainer question or direction to engage."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "'`cargo test` passes (612 tests).' is a bare claim with no command output shown."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "silent-drift",
+      "calibration": false
+    },
+    {
+      "id": "pkg-10",
+      "verdict": "reject",
+      "failed_checks": [
+        "decisive-evidence",
+        "engages-thread",
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "pass",
+          "evidence": "Diff touches only packages/lib/shim-init-node.ts and its test, both named in the plan; sets autoSelectFamilyAttemptTimeout: 2000 on both agents, Happy Eyeballs kept, matching the description."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "fail",
+          "evidence": "Only 'a full day of WebDAV syncs against Koofr \u2026 zero ETIMEDOUT errors': no output shown, the 350 ms delayed-connect repro is not re-run, and no before output is shown or quoted."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "pass",
+          "evidence": "Every +/- line is the option, its explanatory comment, or the new test; no debug, dead code, churn, or moved code."
+        },
+        {
+          "name": "standards-met",
+          "grade": "pass",
+          "evidence": "No PR template or AI policy; description references the issue ('Fixes #16215') and the change is minimal, which are the only stated asks apart from the test suite result."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "fail",
+          "evidence": "Description does not address mrjo118's Koofr speed/VPN/distance question, PandaWood's 'bad servers' point, or mrjo118's existing code change and dev build."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "No yarn test output shown; test evidence says 'no further testing seemed necessary'."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "not-tested",
+      "calibration": false
+    },
+    {
+      "id": "pkg-11",
+      "verdict": "accept",
+      "failed_checks": [
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "pass",
+          "evidence": "Only crates/ignore/src/gitignore.rs changed (the plan's one file, tests in the same file); the trim stops at odd-backslash spaces as planned, and no description claim is contradicted by the diff."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "pass",
+          "evidence": "Repro re-run with the same trigger: before error `dangling '\\'` quoted, after 'searches normally, no error', `foo ` ignored per rg --files, matching the plan's expected outcome."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "pass",
+          "evidence": "All +/- lines are the helper, its call site, the updated comment, or the test; no debug, dead, commented-out, moved, or reformatted lines."
+        },
+        {
+          "name": "standards-met",
+          "grade": "pass",
+          "evidence": "No PR template; tests with the behavior change are in the diff; AI-assisted use is disclosed ('AI-assisted with me reviewing and understanding every line') and the text is in the author's own words."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "The only comment is from a NONE-association user, so there is no maintainer question or direction to engage."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "'`cargo test -p ignore` passes (214 tests)' is stated with no output shown."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-12",
+      "verdict": "reject",
+      "failed_checks": [
+        "plan-fidelity",
+        "clean-diff",
+        "standards-met",
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "fail",
+          "evidence": "Diff adds unplanned `fn _unused_buffer_probe`, and the description's \"CHANGELOG entry included\" is contradicted: no CHANGELOG.md hunk in the diff."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "pass",
+          "evidence": "Repro re-run on branch shows `l1`,`l2`, exit 0; before quoted as capacity overflow, exit 101; matches plan's expected outcome."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "fail",
+          "evidence": "Leaves `// eprintln!(\"DBG buffer_size = {}\", buffer_size);`, a commented-out `let mut buffered_lines` block, dead `_unused_buffer_probe`, a `// TODO: ring buffer?` drive-by edit, and a delete-and-re-add of the unchanged while loop."
+        },
+        {
+          "name": "standards-met",
+          "grade": "fail",
+          "evidence": "Contribution guide asks for a CHANGELOG.md entry; description claims it but the diff touches only src/controller.rs and tests/integration_tests.rs."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "The only thread comment is from a non-maintainer (NONE); no maintainer question or direction bears on the change."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "Only the claim \"`cargo test` passes\" is given; no test output is shown."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "unreviewable",
+      "calibration": false
+    },
+    {
+      "id": "pkg-13",
+      "verdict": "accept",
+      "failed_checks": [
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "pass",
+          "evidence": "Diff files are exactly the plan's two files; the `[&|^<>]` escape matches the plan; the `%` limit is stated in the plan and the description; no description claim is contradicted by the diff."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "pass",
+          "evidence": "The issue's repro command is re-run on the branch, with before (code=1, truncated URL) and after (code=0, full URL) output shown and matching the plan's expected outcome."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "pass",
+          "evidence": "Every changed line is the fix, its explanatory comment, or the new test; no debug, dead, moved, or churned lines."
+        },
+        {
+          "name": "standards-met",
+          "grade": "pass",
+          "evidence": "Problem and Solution sections have real content; the commit uses fix(ui): convention; a test accompanies the behavior change; the repo states no AI policy."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "The thread has 0 comments, so there is no maintainer question or direction to engage."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "Only the claim 'make functionaltest passes, including the new case' with no command output pasted."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-14",
+      "verdict": "reject",
+      "failed_checks": [
+        "plan-fidelity",
+        "decisive-evidence",
+        "clean-diff",
+        "standards-met",
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "fail",
+          "evidence": "Diff adds test_header_casing_preserved, but the plan lists 'Not in scope: header casing'; the description's 'Tests added' is contradicted since no test covers the single-header Content-Type fix."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "fail",
+          "evidence": "Evidence is 'http GET pie.dev/headers X-Custom-Header: value' checking casing; it never re-runs either repro POST command and shows no before/after Content-Type output."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "fail",
+          "evidence": "Unrelated drive-by edit: the added test_header_casing_preserved in tests/test_httpie.py is not part of the Content-Type fix."
+        },
+        {
+          "name": "standards-met",
+          "grade": "fail",
+          "evidence": "Contribution docs ask for tests with the change and a passing suite; the only test added is unrelated to the fix, and 'All tests pass' is claimed without output."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "Neither thread comment is from a maintainer (both users are NONE: Immortal-002's '/assign' and sobhardwaj's question); no maintainer question or direction to engage."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "Only 'All tests pass.' is claimed; no output of the repo's test command is shown."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "not-tested",
+      "calibration": false
+    },
+    {
+      "id": "pkg-15",
+      "verdict": "reject",
+      "failed_checks": [
+        "plan-fidelity",
+        "clean-diff",
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "fail",
+          "evidence": "Plan promises a unit test on the limit-raise helper; none in the diff and absence undisclosed. Diff also adds unplanned dead `count_open_fds()`."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "pass",
+          "evidence": "Same ulimit-64 six-tab repro re-run on branch; before quoted (panic on 4th tab), after shown (all 6 tabs, 'raised fd soft limit 64 -> unlimited'), forced-low control matches plan."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "fail",
+          "evidence": "Leaves `eprintln!(\"DEBUG accept err = {:?}\", err);`, commented-out `// log::debug!(\"fd limit raised\");`, `#[allow(dead_code)] fn count_open_fds`, plus import reorder and ClientAttributes reformat churn."
+        },
+        {
+          "name": "standards-met",
+          "grade": "pass",
+          "evidence": "No PR template or AI policy; description references the issue ('Fixes #5474'), the only stated requirement besides passing cargo test."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "No maintainer (OWNER/MEMBER/COLLABORATOR) comments in the thread; commenters are NONE, so nothing to engage."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "'`cargo test -p zellij-server` passes' is claimed with no output shown."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "unreviewable",
+      "calibration": false
+    },
+    {
+      "id": "pkg-16",
+      "verdict": "accept",
+      "failed_checks": [
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "pass",
+          "evidence": "All three diff files are the plan's two files plus its unit test; error returned only when len(succeeded)==0 and the start path stays tolerant, matching the plan; description claims confirmed by the hunks."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "pass",
+          "evidence": "Not-a-tar repro re-run on the branch: before 'OK' in description, after error naming the image and exit 1, as the plan expects; valid-tarball control exits 0 and the image is listed."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "pass",
+          "evidence": "Every +/- line is the fix or its test; the comment edits document the new behavior; no debug, dead, moved or drive-by lines."
+        },
+        {
+          "name": "standards-met",
+          "grade": "pass",
+          "evidence": "Release-notes-style title, 'fixes #23471' line and before/after examples are present; CONTRIBUTING states no AI policy, so no disclosure is required."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "Description keeps the start path tolerant and says it was 'discussed with @nirs on the thread', answering the multi-node point."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "Only the claim '`go test ./pkg/minikube/machine/... ./cmd/...` passes'; no test output is shown."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-17",
+      "verdict": "reject",
+      "failed_checks": [
+        "plan-fidelity",
+        "standards-met",
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "fail",
+          "evidence": "Plan promises a docs page update; diff touches only reactive.ts and reactive.spec.ts, yet the description claims 'Implements the plan \u2026 in full' and 'documentation now documents the limitation'."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "pass",
+          "evidence": "Dev-build re-run of reactive(Object.seal({useDarkTheme:null})) shows the warning, matching the plan's expected outcome; before state is only described as the silent skip."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "pass",
+          "evidence": "All + lines are the dev-mode warning and its two tests; no debug output, moved code, or formatting churn."
+        },
+        {
+          "name": "standards-met",
+          "grade": "fail",
+          "evidence": "Description claims the docs now document the limitation but no docs file is in the diff; claimed-but-absent item."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "The only thread comment is from edave64 (NONE), so there is no maintainer direction to engage."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "'`pnpm test reactivity` passes (511 tests)' is asserted with no command output shown."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "silent-drift",
+      "calibration": false
+    },
+    {
+      "id": "pkg-18",
+      "verdict": "reject",
+      "failed_checks": [
+        "plan-fidelity",
+        "clean-diff",
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "fail",
+          "evidence": "src/command.rs first hunk rewrites the `use nu_protocol::{...}` imports into separate use lines (commit 9c37d51 'fmt pass'); the plan names no import change."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "pass",
+          "evidence": "Same trigger `nu --help | cat -v | grep -c '\\^\\['` shows 214 before and 0 after, matching the plan's expected outcome; tty color confirmed."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "fail",
+          "evidence": "Leaves in `// eprintln!(\"help colors: tty={}\", std::io::stdout().is_terminal());` plus import reshuffle and identical -/+ println! lines."
+        },
+        {
+          "name": "standards-met",
+          "grade": "pass",
+          "evidence": "Description has problem/approach and a User-facing changes section; no AI policy is stated in the repo, so no disclosure is required."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "Description addresses the maintainer's config use-colors question: out of scope because config is not loaded at that point."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "'`cargo test` passes; fmt and clippy clean' is claimed with no command output shown."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "unreviewable",
+      "calibration": false
+    },
+    {
+      "id": "pkg-19",
+      "verdict": "accept",
+      "failed_checks": [
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "pass",
+          "evidence": "Diff touches only emitterc.go and operator_style_test.go, both planned; the removed indention/whitespace reset at the break site is the planned change and the description's claims match the hunks."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "pass",
+          "evidence": "Same `yq . source.yml` trigger shown before (dedented closing quote) and after (identical, `diff ... IDENTICAL`), matching the plan's byte-identical expectation."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "pass",
+          "evidence": "Only the reset lines are removed and replaced with an explanatory comment; no debug prints, dead or commented-out code, moves, or churn."
+        },
+        {
+          "name": "standards-met",
+          "grade": "pass",
+          "evidence": "No PR template or AI policy; the only stated ask (tests with fixes) is met by the added round-trip test in operator_style_test.go."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "Thread has 0 comments, so no maintainer question or direction to engage."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "\"`go test ./...` passes (4108 tests)\" is claimed in prose with no command output shown."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-20",
+      "verdict": "reject",
+      "failed_checks": [
+        "plan-fidelity",
+        "standards-met",
+        "repo-checks-shown"
+      ],
+      "checks": [
+        {
+          "name": "plan-fidelity",
+          "grade": "fail",
+          "evidence": "Description says \"a second case covers the single-theme scheme flip\", but the added second test \"still ignores unrelated keys\" checks `.fullscreen`, not the flip, and is a test the plan never promised."
+        },
+        {
+          "name": "decisive-evidence",
+          "grade": "pass",
+          "evidence": "Same `printf '\\033[?996n'` trigger under --window-theme=dark with a single theme: before `ESC[?997;2n`, after `ESC[?997;1n`, matching the plan's expected `?997;1n`."
+        },
+        {
+          "name": "clean-diff",
+          "grade": "pass",
+          "evidence": "Old test is replaced in place at the same indentation (not a move); no debug prints, dead code, or formatting churn in the hunks."
+        },
+        {
+          "name": "standards-met",
+          "grade": "fail",
+          "evidence": "AI_POLICY.md requires disclosure of the AI tool and extent of use for all AI usage; the description contains no AI disclosure."
+        },
+        {
+          "name": "engages-thread",
+          "grade": "pass",
+          "evidence": "Thread has 0 comments, so there is no maintainer question or direction to engage."
+        },
+        {
+          "name": "repo-checks-shown",
+          "grade": "fail",
+          "evidence": "\"`zig build test` passes (config suite included)\" is claimed with no output shown."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "standards-wall",
+      "calibration": false
+    }
+  ]
+}
